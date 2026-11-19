@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provali su di te — Morri</title>
+    <meta name="description" content="Prova gli occhiali Morri sul tuo viso con la fotocamera, scegli i colori e scatta una foto.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <!-- gli stili di Morri (caratteri, colori, campioni, bottoni) e quelli della prova -->
+    <link rel="stylesheet" href="stile.css">
+    <link rel="stylesheet" href="prova.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body class="pagina-prova">
+
+    <!-- la grana della carta, come nel resto del sito -->
+    <div class="m-grana" aria-hidden="true"></div>
+
+    <!-- ===== l'ingresso: prima di accendere la fotocamera ===== -->
+    <section class="p-ingresso">
+        <header class="p-ingresso-testa">
+            <a href="index.html" class="m-logo">Morri<sup>®</sup></a>
+            <a href="index.html" class="p-esci-link">← Torna a Morri</a>
+        </header>
+
+        <div class="p-ingresso-corpo">
+            <p class="m-etichetta">Prova su di te</p>
+            <h1 class="p-ingresso-titolo">Guardati <em>con</em> Morri.</h1>
+            <p class="p-ingresso-testo">Accendi la fotocamera: gli occhiali si appoggiano sul tuo viso e ti seguono. Cambia i colori, scatta una foto, aggiungili alla borsa.</p>
+            <button id="accendi" class="m-bottone p-bottone-chiaro" type="button"><span>Accendi la fotocamera</span><span class="m-bottone-freccia">→</span></button>
+            <p class="p-ingresso-nota">Le immagini restano nel tuo browser: niente viene inviato.</p>
+        </div>
+
+        <ol class="p-passi">
+            <li><span>01</span>Accendi la fotocamera</li>
+            <li><span>02</span>Inquadra il viso</li>
+            <li><span>03</span>Scegli i colori</li>
+            <li><span>04</span>Scatta una foto</li>
+        </ol>
+    </section>
+
+    <!-- ===== il pannello "Il tuo Morri", accanto allo specchio ===== -->
+    <aside class="p-pannello" aria-label="Il tuo Morri" hidden>
+        <button class="p-pannello-maniglia" type="button" aria-expanded="true">
+            <span>Il tuo Morri</span><span id="prezzo-maniglia"></span>
+        </button>
+        <div class="p-pannello-corpo">
+            <p class="m-etichetta">Configurazione</p>
+            <h2 class="p-pannello-titolo">Il tuo <em>Morri</em>.</h2>
+            <p class="m-prezzo"><span id="prova-prezzo">€ 240</span><small>IVA inclusa</small></p>
+
+            <!-- i campioni vengono creati da js/pagina-prova.js (le stesse opzioni dello shop) -->
+            <div class="m-scelta" data-gruppo="montatura">
+                <p class="m-scelta-titolo">Montatura <span class="m-scelta-valore"></span></p>
+                <div class="m-campioni"></div>
+            </div>
+            <div class="m-scelta" data-gruppo="lenti">
+                <p class="m-scelta-titolo">Lenti <span class="m-scelta-valore"></span></p>
+                <div class="m-campioni"></div>
+            </div>
+            <div class="m-scelta" data-gruppo="cerniere">
+                <p class="m-scelta-titolo">Cerniere <span class="m-scelta-valore"></span></p>
+                <div class="m-campioni"></div>
+            </div>
+
+            <button id="prova-aggiungi" class="m-bottone p-bottone-chiaro" type="button"><span>Aggiungi alla borsa</span><span class="m-bottone-freccia">→</span></button>
+            <a id="prova-borsa" class="p-borsa-link" href="index.html#shop">La tua borsa (<span id="prova-borsa-numero">0</span>) →</a>
+            <p class="p-pannello-nota">Shop dimostrativo: nessun ordine viene inviato e nessun pagamento è richiesto.</p>
+        </div>
+    </aside>
+
+    <script type="module" src="js/pagina-prova.js"></script>
+</body>
+</html>

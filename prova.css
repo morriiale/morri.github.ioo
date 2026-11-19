@@ -1,0 +1,547 @@
+/* prova.css – la pagina "Provali su di te" di Morri (prova.html)
+   l'ingresso, la finestra con la fotocamera (creata da js/prova.js) e il pannello "Il tuo Morri".
+   usa i caratteri e i colori di stile.css */
+
+
+/* ===== la pagina ===== */
+body.pagina-prova {
+    background: var(--notte);
+    color: var(--carta);
+    min-height: 100vh;
+}
+
+body.pagina-prova .m-etichetta {
+    color: rgba(236, 235, 230, 0.55);
+}
+
+/* un bottone chiaro, per il fondo scuro */
+.p-bottone-chiaro {
+    background: var(--carta);
+    color: var(--inchiostro);
+}
+
+.p-bottone-chiaro:hover {
+    color: var(--carta);
+}
+
+
+/* ===== l'ingresso ===== */
+.p-ingresso {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 22px var(--margine) 28px;
+    overflow: hidden;
+}
+
+/* una luce morbida dietro il titolo */
+.p-ingresso::before {
+    content: "";
+    position: absolute;
+    width: 70vw;
+    height: 70vw;
+    right: -20vw;
+    top: -10vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180, 184, 191, 0.16), transparent 65%);
+    pointer-events: none;
+}
+
+.in-prova .p-ingresso {
+    display: none;
+}
+
+.p-ingresso-testa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.p-esci-link {
+    font: 500 14px var(--sans);
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.75;
+}
+
+.p-esci-link:hover {
+    opacity: 1;
+}
+
+.p-ingresso-corpo {
+    position: relative;
+    align-self: center;
+    max-width: 980px;
+    padding: 60px 0;
+}
+
+.p-ingresso-titolo {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 190px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin: 18px 0 28px;
+}
+
+.p-ingresso-titolo em {
+    color: var(--accento-chiaro);
+}
+
+.p-ingresso-testo {
+    max-width: 32em;
+    margin: 0 0 36px;
+    font-size: clamp(16px, 1.3vw, 19px);
+    color: rgba(236, 235, 230, 0.65);
+}
+
+.p-ingresso-nota {
+    margin: 18px 0 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(236, 235, 230, 0.45);
+}
+
+.p-passi {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: solid 1px rgba(236, 235, 230, 0.14);
+}
+
+.p-passi li {
+    padding: 16px 16px 0 0;
+    font-size: 14px;
+    color: rgba(236, 235, 230, 0.7);
+}
+
+.p-passi span {
+    display: block;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accento-chiaro);
+}
+
+
+/* ===== la finestra della prova (creata da js/prova.js) ===== */
+.prova {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    background: var(--notte);
+    color: var(--carta);
+    font-family: var(--sans);
+}
+
+.prova[hidden] {
+    display: none;
+}
+
+/* mentre la prova è aperta la pagina sotto non scorre */
+body.prova-aperta {
+    overflow: hidden;
+}
+
+/* la barra in alto: il nome, poi i comandi */
+.prova-barra {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    padding: 18px var(--margine);
+    border-bottom: solid 1px rgba(236, 235, 230, 0.1);
+}
+
+.prova-intestazione {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.prova-titolo {
+    order: 1;
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.prova .sovratitolo {
+    order: 2;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(236, 235, 230, 0.5);
+}
+
+.prova-misura {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(236, 235, 230, 0.6);
+}
+
+.prova-misura input {
+    width: 130px;
+    accent-color: var(--carta);
+}
+
+/* i bottoni: pillole sottili */
+.prova .btn-aria {
+    pointer-events: auto;
+    background: transparent;
+    color: var(--carta);
+    border: solid 1px rgba(236, 235, 230, 0.3);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font: 500 13px var(--sans);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.prova .btn-aria:hover {
+    border-color: var(--carta);
+}
+
+.prova .btn-aria.attivo {
+    background: rgba(236, 235, 230, 0.12);
+    border-color: rgba(236, 235, 230, 0.5);
+}
+
+.prova .btn-aria:disabled {
+    opacity: 0.35;
+    cursor: wait;
+}
+
+.prova .btn-aria[hidden] {
+    display: none;
+}
+
+/* "Scatta una foto" è il comando principale */
+.prova .btn-aria.prova-scatta {
+    background: var(--carta);
+    color: var(--inchiostro);
+    border-color: var(--carta);
+}
+
+.prova .btn-aria.prova-scatta:hover {
+    background: #ffffff;
+}
+
+/* lo spazio con lo specchio */
+.prova-area {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px var(--margine) 24px;
+}
+
+/* in questa pagina a destra c'è il pannello "Il tuo Morri" */
+body.pagina-prova .prova-area {
+    padding-right: calc(var(--margine) + 376px);
+}
+
+/* video e 3D sono girati come in uno specchio: muovi la testa a destra e va a destra */
+.prova-specchio {
+    position: relative;
+    transform: scaleX(-1);
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000000;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.prova-specchio video {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.prova-specchio canvas {
+    position: absolute;
+    inset: 0;
+}
+
+/* i messaggi (accensione, "inquadra il tuo viso"…) */
+.prova-stato {
+    position: absolute;
+    left: 50%;
+    bottom: 48px;
+    transform: translateX(-50%);
+    margin: 0;
+    max-width: calc(100% - 64px);
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: solid 1px rgba(236, 235, 230, 0.14);
+    background: rgba(8, 9, 11, 0.72);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+    text-align: center;
+}
+
+body.pagina-prova .prova-stato {
+    left: calc(50% - 188px);
+}
+
+.prova-stato[hidden] {
+    display: none;
+}
+
+
+/* ===== la foto ===== */
+/* il conto alla rovescia, grande al centro */
+.prova-conto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--serif);
+    font-size: 220px;
+    line-height: 1;
+    color: #ffffff;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+body.pagina-prova .prova-conto {
+    left: calc(50% - 188px);
+}
+
+.prova-conto[hidden] {
+    display: none;
+}
+
+/* il lampo del flash */
+.prova-lampo {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.prova-lampo.scatto {
+    animation: lampo 0.5s ease-out;
+}
+
+@keyframes lampo {
+    from { opacity: 0.85; }
+    to   { opacity: 0; }
+}
+
+/* l'anteprima della foto: sopra tutto, anche sopra il pannello */
+.prova-foto {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 20px;
+    background: rgba(8, 9, 11, 0.94);
+}
+
+.prova-foto[hidden] {
+    display: none;
+}
+
+.prova-foto img {
+    max-width: 100%;
+    max-height: calc(100% - 150px);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.prova-foto-comandi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* il bottone principale: i colori di Instagram */
+.prova .btn-aria.prova-condividi {
+    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    border-color: transparent;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.prova-foto-nota {
+    margin: 0;
+    max-width: 520px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(236, 235, 230, 0.7);
+}
+
+
+/* ===== il pannello dei colori generico di prova.js (qui resta nascosto) ===== */
+.prova-colori[hidden],
+.prova-colori.chiuso {
+    display: none;
+}
+
+
+/* ===== il pannello "Il tuo Morri" ===== */
+.p-pannello {
+    position: absolute;
+    top: 20px;
+    right: var(--margine);
+    bottom: 24px;
+    width: 356px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--carta);
+    color: var(--inchiostro);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+.p-pannello[hidden] {
+    display: none;
+}
+
+/* la maniglia serve solo sul telefono */
+.p-pannello-maniglia {
+    display: none;
+}
+
+.p-pannello-corpo {
+    overflow-y: auto;
+    padding: 22px 22px 18px;
+}
+
+.p-pannello .m-etichetta {
+    color: var(--inchiostro-2);
+}
+
+.p-pannello-titolo {
+    margin: 10px 0 12px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+}
+
+.p-pannello .m-prezzo {
+    margin: 0 0 18px;
+    font-size: 40px;
+}
+
+/* sul pannello chiaro il bottone torna scuro */
+.p-pannello .m-bottone {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+    background: var(--inchiostro);
+    color: var(--carta);
+}
+
+.p-borsa-link {
+    display: block;
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--inchiostro);
+}
+
+.p-pannello-nota {
+    margin: 14px 0 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--inchiostro-2);
+}
+
+
+/* ===== telefono e tablet ===== */
+@media (max-width: 900px) {
+    .p-passi {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prova-barra {
+        padding: 14px 16px;
+    }
+    .prova-intestazione {
+        flex-basis: 100%;
+    }
+    .prova-misura {
+        flex: 1;
+    }
+    .prova-misura input {
+        flex: 1;
+        width: auto;
+    }
+
+    /* lo specchio in alto, il pannello in basso (si apre e si chiude) */
+    body.pagina-prova .prova-area {
+        padding: 12px 12px calc(44vh + 24px);
+    }
+    body.pagina-prova .prova-stato {
+        left: 50%;
+        bottom: calc(44vh + 36px);
+    }
+    body.pagina-prova .prova-conto {
+        left: 50%;
+        top: 30%;
+    }
+
+    .p-pannello {
+        top: auto;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        height: 44vh;
+        transition: height 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+    }
+    .p-pannello.chiuso {
+        height: 56px;
+    }
+    .p-pannello-maniglia {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+        padding: 18px 20px;
+        border: none;
+        border-bottom: solid 1px var(--linea);
+        background: none;
+        color: inherit;
+        font: 500 14px var(--sans);
+        cursor: pointer;
+    }
+    .p-pannello-corpo {
+        padding-top: 10px;
+    }
+    .p-pannello-titolo {
+        display: none;
+    }
+}

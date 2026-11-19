@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morri — Occhiali in acetato nero</title>
+    <meta name="description" content="Morri: occhiali in acetato nero, cerniere in metallo, lenti scure specchiate. Un progetto di Alessandro Morri.">
+
+    <!-- i caratteri: Instrument Serif (titoli), Inter Tight (testi), JetBrains Mono (dati tecnici) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <link rel="stylesheet" href="stile.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- ===== il caricamento: il conteggio grande mentre arriva il modello 3D ===== -->
+    <div class="m-caricamento" aria-hidden="true">
+        <span class="m-caricamento-marchio">Morri</span>
+        <span class="m-caricamento-numero"><span id="percentuale">0</span><small>%</small></span>
+        <span class="m-caricamento-riga"></span>
+    </div>
+
+    <!-- la scena 3D: un solo canvas fisso dietro (e davanti) ai testi, che segue lo scroll -->
+    <canvas id="scena" class="m-scena" aria-label="Gli occhiali Morri in 3D"></canvas>
+
+    <!-- la grana della carta, sopra tutto -->
+    <div class="m-grana" aria-hidden="true"></div>
+    <!-- il cursore: una piccola lente che segue il mouse -->
+    <div class="m-cursore" aria-hidden="true"></div>
+
+    <!-- ===== la testata ===== -->
+    <header class="m-testata">
+        <a href="#inizio" class="m-logo">Morri<sup>®</sup></a>
+        <nav class="m-menu" aria-label="Sezioni">
+            <a href="#forma"><span>01</span> Forma</a>
+            <a href="#dettagli"><span>03</span> Dettagli</a>
+            <a href="#viste"><span>05</span> Viste</a>
+            <a href="#misure"><span>06</span> Misure</a>
+            <a href="#progetto"><span>07</span> Progetto</a>
+            <a href="#shop"><span>08</span> Shop</a>
+        </nav>
+        <div class="m-testata-azioni">
+            <button class="m-borsa-bottone js-apri-borsa" type="button">Borsa <span id="borsa-numero">0</span></button>
+            <button class="m-bottone m-bottone-piccolo js-prova" type="button">Provali</button>
+        </div>
+    </header>
+
+    <!-- ===== la borsa dello shop (si apre da destra) ===== -->
+    <div class="m-velo js-chiudi-borsa" aria-hidden="true"></div>
+    <aside class="m-borsa" aria-label="La tua borsa" aria-hidden="true">
+        <div class="m-borsa-testa">
+            <h2>Borsa</h2>
+            <button class="m-borsa-chiudi js-chiudi-borsa" type="button">Chiudi</button>
+        </div>
+        <ul id="borsa-elenco" class="m-borsa-elenco"></ul>
+        <p id="borsa-vuota" class="m-borsa-vuota">La borsa è vuota.<br><a href="#shop" class="js-chiudi-borsa">Scegli il tuo Morri →</a></p>
+        <div class="m-borsa-piede">
+            <div class="m-borsa-totale"><span>Totale</span><span id="borsa-totale">€ 0</span></div>
+            <button id="borsa-procedi" class="m-bottone" type="button" disabled>Procedi all'ordine</button>
+            <p id="borsa-messaggio" class="m-borsa-messaggio" hidden>Questo è uno shop dimostrativo del progetto: l'ordine non viene inviato e non è richiesto nessun pagamento.</p>
+        </div>
+    </aside>
+
+    <main>
+
+        <!-- ===== 00 · apertura ===== -->
+        <section id="inizio" class="m-sezione m-apertura" data-scena="apertura">
+            <h1 class="m-marchio-gigante m-dietro" aria-label="Morri">
+                <span>M</span><span>o</span><span>r</span><span>r</span><span>i</span>
+            </h1>
+            <div class="m-apertura-righe">
+                <p class="m-etichetta">Edizione 01 — Occhiali da sole</p>
+                <p class="m-apertura-motto"><em>Nero,</em> in ogni dettaglio.</p>
+            </div>
+            <div class="m-apertura-piede">
+                <p class="m-etichetta">Acetato nero<br>Cerniere in metallo</p>
+                <p class="m-scorri"><span class="m-scorri-linea"></span>Scorri</p>
+                <p class="m-etichetta m-destra">Progetto di<br>Alessandro Morri</p>
+            </div>
+        </section>
+
+        <!-- la striscia che scorre -->
+        <div class="m-striscia" aria-hidden="true">
+            <div class="m-striscia-testo">
+                <span>Forma essenziale</span><i>✦</i><span><em>acetato nero</em></span><i>✦</i>
+                <span>Cerniere in metallo</span><i>✦</i><span><em>disegnati in 3D</em></span><i>✦</i>
+                <span>Forma essenziale</span><i>✦</i><span><em>acetato nero</em></span><i>✦</i>
+                <span>Cerniere in metallo</span><i>✦</i><span><em>disegnati in 3D</em></span><i>✦</i>
+            </div>
+        </div>
+
+        <!-- ===== 01 · la forma ===== -->
+        <section id="forma" class="m-sezione m-capitolo" data-scena="forma">
+            <div class="m-griglia">
+                <div class="m-colonna-testo">
+                    <p class="m-numero" aria-hidden="true">01</p>
+                    <p class="m-etichetta">La forma</p>
+                    <h2 class="m-titolo" data-dividi>Una linea, <em>tracciata</em> una volta.</h2>
+                    <p class="m-testo m-rivela">Il frontale è largo 142 millimetri e alto 47: proporzioni piene, che incorniciano lo sguardo senza nasconderlo. Il ponte è sottile, le lenti ampie, i bordi morbidi. Nessuna decorazione: è il disegno a fare il carattere.</p>
+                    <ul class="m-dati m-rivela">
+                        <li><span>Frontale</span><span>142 × 47 mm</span></li>
+                        <li><span>Lenti</span><span>57 mm di larghezza</span></li>
+                        <li><span>Ponte</span><span>14 mm</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 02 · la materia (sezione scura) ===== -->
+        <section id="materia" class="m-sezione m-capitolo m-scuro" data-scena="materia">
+            <div class="m-griglia">
+                <div class="m-colonna-testo">
+                    <p class="m-numero" aria-hidden="true">02</p>
+                    <p class="m-etichetta">La materia</p>
+                    <h2 class="m-titolo" data-dividi>Il nero <em>che prende</em> la luce.</h2>
+                    <p class="m-testo m-rivela">Frontale e aste sono in acetato nero lucido: un nero pieno, profondo, che sui bordi si accende di riflessi. Al buio sparisce, alla luce disegna il proprio contorno. Muovi il mouse e guarda come la luce scorre sulla superficie.</p>
+                    <ul class="m-dati m-rivela">
+                        <li><span>Frontale</span><span>Acetato nero lucido</span></li>
+                        <li><span>Aste</span><span>Acetato nero lucido</span></li>
+                        <li><span>Finitura</span><span>Lucida</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 03 · i dettagli ===== -->
+        <section id="dettagli" class="m-sezione m-capitolo" data-scena="dettagli">
+            <div class="m-griglia">
+                <div class="m-colonna-testo">
+                    <p class="m-numero" aria-hidden="true">03</p>
+                    <p class="m-etichetta">I dettagli</p>
+                    <h2 class="m-titolo" data-dividi>Piccole cose, <em>fatte</em> bene.</h2>
+                    <ol class="m-elenco-dettagli m-rivela">
+                        <li>
+                            <span class="m-elenco-numero">i.</span>
+                            <div><h3>Le cerniere</h3><p>In metallo canna di fucile, l'unico elemento che non è nero: fanno ruotare le aste con un movimento preciso.</p></div>
+                        </li>
+                        <li>
+                            <span class="m-elenco-numero">ii.</span>
+                            <div><h3>Il ponte</h3><p>Quattordici millimetri tra le lenti: appoggia sul naso e tiene il frontale in equilibrio.</p></div>
+                        </li>
+                        <li>
+                            <span class="m-elenco-numero">iii.</span>
+                            <div><h3>Le aste</h3><p>Lunghe 117 millimetri dalla cerniera alla punta, seguono la testa fino all'orecchio.</p></div>
+                        </li>
+                        <li>
+                            <span class="m-elenco-numero">iv.</span>
+                            <div><h3>Le lenti</h3><p>Scure e trasparenti, con un leggero riflesso a specchio.</p></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 04 · la costruzione (lunga: mentre scorri gli occhiali si esplodono) ===== -->
+        <section id="costruzione" class="m-sezione m-lunga" data-scena="costruzione">
+            <div class="m-fermo">
+                <div class="m-griglia">
+                    <div class="m-colonna-testo">
+                        <p class="m-numero" aria-hidden="true">04</p>
+                        <p class="m-etichetta">La costruzione</p>
+                        <h2 class="m-titolo" data-dividi>Ogni pezzo <em>al suo</em> posto.</h2>
+                        <p class="m-testo m-rivela">Scorri e gli occhiali si aprono nei loro pezzi: il frontale, le due lenti, le cerniere e le aste. Pochi elementi, ognuno con un compito preciso.</p>
+                        <ol class="m-pezzi m-rivela">
+                            <li><span>A</span>Frontale</li>
+                            <li><span>B</span>Lenti</li>
+                            <li><span>C</span>Cerniere</li>
+                            <li><span>D</span>Aste</li>
+                        </ol>
+                        <div class="m-avanzamento" aria-hidden="true"><span id="barra-esploso"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== il gesto (lunga: le stanghette si chiudono mentre scorri) ===== -->
+        <section id="chiusura" class="m-sezione m-lunga m-lunga-corta" data-scena="chiusura">
+            <div class="m-fermo">
+                <div class="m-griglia">
+                    <div class="m-colonna-testo m-a-destra">
+                        <p class="m-etichetta">Il gesto</p>
+                        <h2 class="m-titolo m-titolo-grande" data-dividi>Si piega, <em>si porta</em> via.</h2>
+                        <p class="m-testo m-rivela">Le aste ruotano sulle cerniere e si richiudono una sull'altra, pronte per la custodia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 05 · le viste fisse (immagini scattate dal modello 3D al caricamento, js: fotografaViste) ===== -->
+        <section id="viste" class="m-sezione m-viste" data-scena="viste">
+            <div class="m-viste-testa">
+                <div>
+                    <p class="m-numero" aria-hidden="true">05</p>
+                    <p class="m-etichetta">Le viste</p>
+                </div>
+                <h2 class="m-titolo" data-dividi>Da ogni <em>lato</em>.</h2>
+            </div>
+            <div class="m-galleria">
+                <figure class="m-vista m-vista-grande" data-vista="treQuarti"><img alt="Gli occhiali Morri di tre quarti"><figcaption><span>01</span>Tre quarti</figcaption></figure>
+                <figure class="m-vista m-vista-larga" data-vista="frontale"><img alt="Gli occhiali Morri visti di fronte"><figcaption><span>02</span>Frontale</figcaption></figure>
+                <figure class="m-vista" data-vista="profilo"><img alt="Gli occhiali Morri di profilo"><figcaption><span>03</span>Profilo</figcaption></figure>
+                <figure class="m-vista" data-vista="alto"><img alt="Gli occhiali Morri visti dall'alto"><figcaption><span>04</span>Dall'alto</figcaption></figure>
+                <figure class="m-vista m-vista-alta m-vista-scura" data-vista="cerniera"><img alt="Primo piano della cerniera in metallo"><figcaption><span>05</span>La cerniera</figcaption></figure>
+                <figure class="m-vista m-vista-larga" data-vista="esploso"><img alt="Gli occhiali Morri esplosi nei loro pezzi"><figcaption><span>06</span>Esploso</figcaption></figure>
+                <figure class="m-vista" data-vista="chiusi"><img alt="Gli occhiali Morri con le aste chiuse"><figcaption><span>07</span>Chiusi</figcaption></figure>
+                <figure class="m-vista m-vista-larga" data-vista="dietro"><img alt="Gli occhiali Morri visti da dietro"><figcaption><span>08</span>Da dietro</figcaption></figure>
+                <figure class="m-vista" data-vista="ponte"><img alt="Primo piano del ponte"><figcaption><span>09</span>Il ponte</figcaption></figure>
+            </div>
+        </section>
+
+        <!-- ===== 06 · le misure ===== -->
+        <section id="misure" class="m-sezione m-capitolo m-misure" data-scena="misure">
+            <div class="m-misure-testa">
+                <p class="m-numero" aria-hidden="true">06</p>
+                <p class="m-etichetta">Le misure</p>
+                <p class="m-misura-gigante" aria-label="Calibro 57, ponte 14, asta 117">57<span class="m-quadrato">□</span>14<span class="m-trattino">–</span>117</p>
+            </div>
+            <dl class="m-tabella">
+                <div><dt>Calibro</dt><dd>57<small>mm</small></dd><p>larghezza della lente</p></div>
+                <div><dt>Ponte</dt><dd>14<small>mm</small></dd><p>tra le due lenti</p></div>
+                <div><dt>Asta</dt><dd>117<small>mm</small></dd><p>dalla cerniera alla punta</p></div>
+                <div><dt>Frontale</dt><dd>142<small>mm</small></dd><p>larghezza</p></div>
+                <div><dt>Altezza</dt><dd>47<small>mm</small></dd><p>del frontale</p></div>
+                <div><dt>Ingombro</dt><dd>147<small>mm</small></dd><p>da cerniera a cerniera</p></div>
+            </dl>
+            <p class="m-nota">Misure ricavate dal modello 3D.</p>
+        </section>
+
+        <!-- ===== 07 · il progetto ===== -->
+        <section id="progetto" class="m-sezione m-capitolo m-scuro" data-scena="progetto">
+            <div class="m-griglia">
+                <div class="m-colonna-testo">
+                    <p class="m-numero" aria-hidden="true">07</p>
+                    <p class="m-etichetta">Il progetto</p>
+                    <h2 class="m-titolo" data-dividi>Nati <em>come</em> modello 3D.</h2>
+                    <p class="m-testo m-rivela">Gli occhiali sono stati disegnati al computer, un pezzo alla volta, come se dovessero essere prodotti davvero: frontale, lenti, cerniere e aste sono parti separate. Quello che vedi muoversi in questa pagina è proprio il file di progetto.</p>
+                    <ul class="m-dati m-rivela">
+                        <li><span>Progetto</span><span>Alessandro Morri</span></li>
+                        <li><span>Modello</span><span>CAD, esportato in GLB</span></li>
+                        <li><span>Pezzi</span><span>Frontale, lenti, cerniere, aste</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 08 · lo shop: le scelte cambiano dal vivo gli occhiali 3D della pagina ===== -->
+        <section id="shop" class="m-sezione m-capitolo m-shop" data-scena="shop">
+            <div class="m-griglia">
+                <div class="m-colonna-testo m-a-destra m-shop-pannello">
+                    <p class="m-numero" aria-hidden="true">08</p>
+                    <p class="m-etichetta">Shop</p>
+                    <h2 class="m-titolo" data-dividi>Il tuo <em>Morri</em>.</h2>
+                    <p class="m-prezzo"><span id="shop-prezzo">€ 240</span><small>IVA inclusa</small></p>
+
+                    <!-- i campioni vengono creati da morri.js (OPZIONI) -->
+                    <div class="m-scelta" data-gruppo="montatura">
+                        <p class="m-scelta-titolo">Montatura <span class="m-scelta-valore"></span></p>
+                        <div class="m-campioni"></div>
+                    </div>
+                    <div class="m-scelta" data-gruppo="lenti">
+                        <p class="m-scelta-titolo">Lenti <span class="m-scelta-valore"></span></p>
+                        <div class="m-campioni"></div>
+                    </div>
+                    <div class="m-scelta" data-gruppo="cerniere">
+                        <p class="m-scelta-titolo">Cerniere <span class="m-scelta-valore"></span></p>
+                        <div class="m-campioni"></div>
+                    </div>
+
+                    <div class="m-shop-azioni">
+                        <button id="shop-aggiungi" class="m-bottone" type="button"><span>Aggiungi alla borsa</span><span class="m-bottone-freccia">→</span></button>
+                        <button class="m-bottone m-bottone-chiaro js-prova" type="button">Provali con questi colori</button>
+                    </div>
+                    <p class="m-nota">Shop dimostrativo del progetto: nessun ordine viene inviato e nessun pagamento è richiesto.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== provali ===== -->
+        <section id="prova" class="m-sezione m-prova-sezione" data-scena="prova">
+            <p class="m-etichetta">Con la fotocamera</p>
+            <h2 class="m-titolo m-titolo-gigante" data-dividi>Provali <em>su di te</em>.</h2>
+            <p class="m-testo m-rivela">Accendi la fotocamera: gli occhiali seguono il tuo viso. Cambia i colori delle parti, scatta una foto e condividila.</p>
+            <button class="m-bottone js-prova m-rivela" type="button"><span>Prova ora</span><span class="m-bottone-freccia">→</span></button>
+        </section>
+
+    </main>
+
+    <!-- ===== il piede ===== -->
+    <footer class="m-piede">
+        <p class="m-piede-marchio" aria-hidden="true">Morri</p>
+        <div class="m-piede-righe">
+            <p>Progetto di<br>Alessandro Morri</p>
+            <p><a href="#shop">Shop</a><br><a href="#inizio">Torna su ↑</a></p>
+            <p class="m-destra">Edizione 01<br>Acetato nero</p>
+        </div>
+    </footer>
+
+    <script type="module" src="morri.js"></script>
+</body>
+</html>
